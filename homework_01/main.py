@@ -13,7 +13,7 @@ def power_numbers(*num, power=2):
     <<< [1, 4, 25, 49]
     """
 
-print (power_numbers(1,2,5,7))
+print ("power",power_numbers(1,2,5,7))
 
 
 
@@ -33,13 +33,13 @@ def is_prime(prime):
 
 
 
-def filter_numbers(*num, fil):
+def filter_numbers(num, fil):
         if fil == 'odd':
-            return list(filter(lambda x: x % 2 == 0, *num))
+                return list(filter(lambda x: x % 2 and x > 0, num))
         if fil == 'even':
-            return list(filter(lambda x: x % 2, *num))
+                return list(filter(lambda x: x % 2 == 0 and x > 0, num))
         if fil == 'prime':
-            return list(filter(lambda x: x == is_prime(x), *num))
+            return list(filter(lambda x: x == is_prime(x), num))
 
         """
         функция, которая на вход принимает список из целых чисел,
@@ -52,8 +52,8 @@ def filter_numbers(*num, fil):
         <<< [2, 4]
         """
 
-print ("odd",filter_numbers([1,2,3,4,5,6,7,8,9,10,11],fil=ODD))
-print ("even",filter_numbers([1,2,3,4,5,6,7,8,9,10,11],fil=EVEN))
-print ("prime",filter_numbers([1,2,3,4,5,6,7,8,9,10,11],fil=PRIME))
+print ("odd",filter_numbers([-1,0,1,2,3,4,5,6,7,8,9,10,11],ODD))
+print ("even",filter_numbers([-1,0,1,2,3,4,5,6,7,8,9,10,11],EVEN))
+print ("prime",filter_numbers([-1,0,1,2,3,4,5,6,7,8,9,10,11],PRIME))
 
 
