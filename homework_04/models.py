@@ -41,15 +41,15 @@ Session = sessionmaker(engine, class_=AsyncSession)
 class User(Base):
     __tablename__ = 'user'
     id = Column(Integer, primary_key=True)
-    user = Column(String(32), nullable=False)
-    username = Column(String(32),  nullable=False)
-    email = Column(String(32),  default=False, nullable=False)
+    name = Column(String(64), nullable=False)
+    username = Column(String(64),  nullable=False)
+    email = Column(String(64),  default=False, nullable=False)
 
     def __str__(self):
         return (
             f"{self.__class__.__name__}("
             f"id={self.id}, "
-            f"user={self.user!r}, "
+            f"name={self.name!r}, "
             f"username={self.username}, "
             f"email={self.email!r})"
         )
@@ -61,7 +61,7 @@ class Post(Base):
     __tablename__ = 'post'
     id = Column(Integer, primary_key=True)
     user_id = Column(Integer, ForeignKey('user.id'))
-    title = Column(String(64), nullable=False)
+    title = Column(String(100), nullable=False)
     body = Column(Text, default=False, nullable=False)
 
     def __str__(self):

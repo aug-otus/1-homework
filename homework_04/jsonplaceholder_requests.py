@@ -18,16 +18,18 @@ async def fetch_json(session: ClientSession, url: str) -> dict:
 async def fetch_users_data() -> List[dict]:
     async with ClientSession() as session:
         users_data = await fetch_json(session, USERS_DATA_URL)
-        return users_data
+    return users_data
 
 
 async def fetch_posts_data() -> List[dict]:
     async with ClientSession() as session:
         posts_data = await fetch_json(session, POSTS_DATA_URL)
-        return posts_data
+    return posts_data
 
 
 async def main():
+    users_data: List[dict]
+    posts_data: List[dict]
     users_data, posts_data = await asyncio.gather(
         fetch_users_data(),
         fetch_posts_data(),

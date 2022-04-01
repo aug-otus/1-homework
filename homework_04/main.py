@@ -14,9 +14,9 @@
 """
 import asyncio
 import sys
-from typing import List
 
-from sqlalchemy.ext.asyncio import AsyncSession, create_async_engine, async_session
+
+from sqlalchemy.ext.asyncio import AsyncSession
 
 from homework_04.jsonplaceholder_requests import fetch_users_data, fetch_posts_data
 from homework_04.models import engine, Base, User, Post, Session
@@ -29,22 +29,28 @@ async def create_tables():
 
 
 async def create_user(session: AsyncSession, user_data):
-    for data in user_data:
-        users = User(id=data["id"], user=data["name"], username=data["username"], email=data["email"])
-    session.add(users)
-    await session.commit()
+    # for data in user_data:
+    #     users = User(id=data["id"], name=data["name"], username=data["username"], email=data["email"])
+    # session.add(users)
+    # await session.commit()
+    async with session.begin():
+        for u in user_data:
+            session.add(User(id=u['id'], name=u['name'], username=u['username'], email=u['email']))
+
 
 
 async def create_post(session: AsyncSession, post_data):
-    for data in post_data:
-        posts = Post(id=data["id"], user_id=data["userId"], title=data["title"], body=data["body"])
-    session.add(posts)
-    await session.commit()
+    # for data in post_data:
+    #     posts = Post(id=data["id"], user_id=data["userId"], title=data["title"], body=data["body"])
+    # session.add(posts)
+    # await session.commit()
+    async with session.begin():
+        for p in post_data:
+            session.add(Post(id=p['id'], title=p['title'], body=p['body'], user_id=p['userId']))
+
 
 
 async def async_main():
-    # users_data: List[dict]
-    # posts_data: List[dict]
 
     await create_tables()
 
@@ -56,6 +62,7 @@ async def async_main():
     async with Session() as session:
         await create_user(session, users_data)
         await create_post(session, posts_data)
+        await session.commit()
 
 
 def main():

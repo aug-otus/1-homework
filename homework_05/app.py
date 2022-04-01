@@ -17,7 +17,7 @@ from homework_05.views.index import index_page
 
 app = Flask(__name__)
 
-app.register_blueprint(index_page, url_prefix="/")
+app.register_blueprint(index_page)
 
-app.register_blueprint(about_page, url_prefix="/about")
+app.register_blueprint(about_page)
 
